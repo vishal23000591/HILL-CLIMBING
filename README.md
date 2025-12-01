@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name:  Vishal S          </h3>
+<h3>Register Number:  212223110063         </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -38,24 +38,55 @@ Feedback is provided in terms of heuristic function
 <h3>Step-4:</h3>
 <p> Lopp Step -2 and Step-3  until we achieve the score to be Zero to achieve Global Minima.</p>
 
+**PROGRAM**
+```
+import random
+import string
+
+TARGET = "Artificial Intelligence"
+
+def fitness(candidate):
+    return sum(abs(ord(candidate[i]) - ord(TARGET[i])) for i in range(len(TARGET)))
+
+
+def random_string(length):
+    letters = string.printable  
+    return ''.join(random.choice(letters) for _ in range(length))
+
+
+def mutate(parent):
+    index = random.randrange(len(parent))  
+    letters = string.printable
+    new_char = random.choice(letters)
+
+    child = parent[:index] + new_char + parent[index+1:]
+    return child
+
+
+def hill_climb():
+    current = random_string(len(TARGET))     
+    current_score = fitness(current)
+
+    print(f"Initial Score: {current_score} Solution: {current}")
+
+
+    while current_score != 0:
+        neighbor = mutate(current)           
+        neighbor_score = fitness(neighbor)   
+
+        
+        if neighbor_score < current_score:
+            current, current_score = neighbor, neighbor_score
+            print(f"Score: {current_score} Solution: {current}")
+
+    return current
+
+solution = hill_climb()
+print("\nFinal Solution:", solution)
+```
 <hr>
 <h2>Sample Input and Output</h2>
 <h2>Sample String:</h2> Artificial Intelligence
 <h2>Output:</h2>
-Score: 643  Solution :  8RzF:oG ]%;CPORRMe!zGvk<br>
-Score: 609  Solution :  8RzF:oG ]%;CPqRRMe!zGvk<br>
-Score: 604  Solution :  8RzF:oG ]%;CPqRRMe!zGqk<br>
-Score: 594  Solution :  8RzF:oG ]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-....................................................<br>
-..................................................<br>
-................................................<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 1  Solution :  Artificial Intelligencf<br>
-Score: 0  Solution :  Artificial Intelligence<br>
+<img width="463" height="966" alt="image" src="https://github.com/user-attachments/assets/17ef29c7-697e-4ad1-a1b1-70dc1065b12b" />
+
